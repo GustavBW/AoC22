@@ -11,12 +11,8 @@ public class Solver2 {
     public static final String filepath = "src/main/java/second/input.txt";
 
     @FunctionalInterface
-    public static interface Func{
+    public interface Func{
         int evaluate(String enemyChoice);
-    }
-
-    public static void main(String[] args) throws IOException {
-        System.out.println("Score when following guide: " + new Solver2().calculateScore(filepath));
     }
 
     private static final Map<String, Integer> valueOfChoiceMap = new HashMap<>(
@@ -31,14 +27,21 @@ public class Solver2 {
             "A", "B",
             "B","C"
     ));
-    //You need to win
-    //You need to loose
-    private static Map<String, Func> approachMap = new HashMap<>(Map.of(
+    private static final Map<String, Func> approachMap = new HashMap<>(Map.of(
+            // You need to loose the match
             "X", enemyChoice -> valueOfChoiceMap.get(whoBeatsWhoMap.get(enemyChoice)),
             // You need to draw the match
             "Y", enemyChoice ->  3 + valueOfChoiceMap.get(enemyChoice),
+            // You need to win the match
             "Z", enemyChoice -> 6 + valueOfChoiceMap.get(whoLoosesToWhoMap.get(enemyChoice))
     ));
+
+    public static void main(String[] args) throws IOException {
+        Solver2 solver = new Solver2();
+        long timeA = System.currentTimeMillis();
+        System.out.println("Score when following guide: " + solver.calculateScore(filepath));
+        System.out.println("Time to solve: " + (System.currentTimeMillis() - timeA) + "ms");
+    }
 
     public int calculateScore(String filepath) throws IOException, NumberFormatException
     {
