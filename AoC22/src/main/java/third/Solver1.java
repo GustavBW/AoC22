@@ -12,8 +12,8 @@ public class Solver1 {
     public static final String priorities = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /*
-    Find the item type that appears in both compartments of each rucksack.
-    What is the sum of the priorities of those item types?
+        Find the item type that appears in both compartments of each rucksack.
+        What is the sum of the priorities of those item types?
      */
 
     public static void main(String[] args) throws IOException {
@@ -33,6 +33,7 @@ public class Solver1 {
             char inBoth = findDuplicate(compartments);
             prioritySum += getPriority(inBoth);
         }
+        bufferedReader.close();
         return prioritySum;
     }
 
@@ -49,7 +50,7 @@ public class Solver1 {
     public static String[] getCompartments(String s)
     {
         String[] compartments = new String[2];
-        int middle = (int) (s.length() / 2.0);
+        int middle = s.length() / 2;
         compartments[0] = s.substring(0,middle);
         compartments[1] = s.substring(middle);
         return compartments;
