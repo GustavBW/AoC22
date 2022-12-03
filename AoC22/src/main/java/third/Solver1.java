@@ -17,9 +17,15 @@ public class Solver1 {
      */
 
     public static void main(String[] args) throws IOException {
-        long timeA = System.currentTimeMillis();
+        long totalMS = 0;
+        long timeA = System.nanoTime();
+        for(int i = 0; i < 1_000_000; i++){
+            getSumOfPriorities();
+        }
+        totalMS += (System.nanoTime() - timeA) / 1_000_000;
+
         System.out.println("Sum of priorities of items in both compartments are: " + getSumOfPriorities());
-        System.out.println("Solve time: " + (System.currentTimeMillis() - timeA) + "ms");
+        System.out.println("Solve time: " + totalMS + "ns");
     }
 
     public static int getSumOfPriorities() throws IOException
@@ -40,8 +46,10 @@ public class Solver1 {
     private static char findDuplicate(String[] compartments)
     {
         for(char b : compartments[0].toCharArray()){
-            if(compartments[1].indexOf(b) != -1){
-                return b;
+            for(char c : compartments[1].toCharArray()){
+                if(b == c){
+                    return b;
+                }
             }
         }
         return 'a';

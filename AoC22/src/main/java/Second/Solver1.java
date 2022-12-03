@@ -1,4 +1,4 @@
-package Second;
+package second;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
