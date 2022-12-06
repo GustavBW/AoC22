@@ -13,11 +13,10 @@ public class Solver1 {
     {
         long totalMS = 0;
         long timeA = System.nanoTime();
-        for(int i = 0; i < 1_000; i++){
+        for(int i = 0; i < 1_000_000; i++){
             getBytesToFirstMarker();
         }
-        totalMS += (System.nanoTime() - timeA) / 1_000;
-        //4096 is too high
+        totalMS += (System.nanoTime() - timeA) / 1_000_000;
         System.out.println("Character count position of package start marker: " + getBytesToFirstMarker());
         System.out.println("Solve time: " + totalMS + "ns");
     }
@@ -37,6 +36,7 @@ public class Solver1 {
             }
             counter++;
         }
+        reader.close();
         return counter + 1;
     }
     public static boolean isUnique(int[] array){
@@ -48,12 +48,4 @@ public class Solver1 {
         }
         return true;
     }
-    public static String arrayToString(int[] array){
-        String asString = "";
-        for(int c : array){
-            asString += (char) c+",";
-        }
-        return asString;
-    }
-
 }
