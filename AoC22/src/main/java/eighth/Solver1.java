@@ -33,10 +33,10 @@ public class Solver1 {
     public static boolean[][] getAsBoolGrid(byte[][] grid){
         boolean[][] isVisibleGrid = new boolean[grid.length][grid[0].length];
 
-        markVertical(grid,isVisibleGrid,0,1);
-        markVertical(grid,isVisibleGrid,grid.length-1,-1);
-        markHorizontal(grid,isVisibleGrid, 0,1);
-        markHorizontal(grid,isVisibleGrid, grid[0].length-1,-1);
+        markVertical(grid,isVisibleGrid,0,0,1);
+        markVertical(grid,isVisibleGrid,grid.length-1,0,-1);
+        markHorizontal(grid,isVisibleGrid, 0,0,1);
+        markHorizontal(grid,isVisibleGrid, 0,grid[0].length-1,-1);
 
         return isVisibleGrid;
     }
@@ -64,11 +64,11 @@ public class Solver1 {
         return sum;
     }
 
-    private static void markVertical(byte[][] grid, boolean[][] visibilityGrid, int startY, int increment)
+    private static void markVertical(byte[][] grid, boolean[][] visibilityGrid, int startY, int startX, int increment)
     {
         byte current = 0, highest = -1;
 
-        for(int x = 0; x < grid[0].length; x++){
+        for(int x = startX; x < grid[0].length; x++){
             for(int y = startY; y >= 0 && y < grid.length; y += increment){
                 current = grid[y][x];
                 if(current <= highest){continue;}
@@ -78,11 +78,11 @@ public class Solver1 {
             highest = -1; //resetting
         }
     }
-    private static void markHorizontal(byte[][] grid, boolean[][] visibilityGrid, int startX, int increment)
+    private static void markHorizontal(byte[][] grid, boolean[][] visibilityGrid, int startY, int startX, int increment)
     {
         byte current = 0, highest = -1;
 
-        for (int y = 0; y < grid.length; y++) {
+        for (int y = startY; y < grid.length; y++) {
             for (int x = startX; x >= 0 && x < grid[y].length; x += increment) {
                 current = grid[y][x];
                 if (current <= highest) {continue;}
