@@ -3,7 +3,7 @@ package seventh;
 import java.io.IOException;
 import java.util.*;
 
-public class Sovler2 {
+public class Solver2 {
 
     public static void main(String[] args) throws IOException
     {
