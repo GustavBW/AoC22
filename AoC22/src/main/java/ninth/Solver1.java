@@ -1,5 +1,6 @@
 package ninth;
 
+import javax.imageio.IIOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class Solver1 {
 
          */
         //1629, 6444 is too low
-        System.out.println("Amount of unique positions of tail: " + getAmountOfPositionsOfTail());
+        System.out.println("Amount of unique positions of tail: " + evenBetterSolution());
         System.out.println("Solve time: " + totalMS + "ns");
     }
     private record Vec2(int x, int y) implements Comparable<Vec2>{
@@ -86,6 +87,35 @@ public class Solver1 {
         }
         //plotAndPrint(tailPositions);
         return tailPositions.size();
+    }
+
+    private static int evenBetterSolution() throws IOException
+    {
+        int[] tx = new int[10];
+        int[] ty = new int[10];
+        BufferedReader br = new BufferedReader(new FileReader(filepath));
+        Set<String> marked = new HashSet<>();
+        String line = "";
+
+        while((line = br.readLine()) != null) {
+            String[] p = line.split(" ");
+            int dir = ((line.charAt(0) / 3) - 1) & 3;
+            int mag = (-1 + (dir >> 1) * 2);
+            for (int step = 0; step < Integer.parseInt(p[1]); step++) {
+                tx[0] += mag * (~dir & 1);
+                ty[0] += mag * (dir & 1);
+                for (int ptr = 1; ptr < 10; ptr++) {
+                    int dx = tx[ptr - 1] - tx[ptr];
+                    int dy = ty[ptr - 1] - ty[ptr];
+                    if (Math.abs(dx) == 2 || Math.abs(dy) == 2) {
+                        tx[ptr] += Integer.signum(dx);
+                        ty[ptr] += Integer.signum(dy);
+                    }
+                }
+                marked.add(tx[9] + "," + ty[9]);
+            }
+        }
+        return marked.size();
     }
 
     private static Vec2 goodSolution(Set<Vec2> tailPositions, Vec2 lastKnownTailPosition, int magnitudeOfMove, Vec2 direction, int[] newHeadPosition) {

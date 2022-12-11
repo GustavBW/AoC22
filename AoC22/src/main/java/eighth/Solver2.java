@@ -13,8 +13,6 @@ public class Solver2 {
         }
         totalMS += (System.nanoTime() - timeA) / 1_000;
 
-        //392080 was right
-        //2147083848 is too high
         System.out.println("Highest scenic score: " + getHighestScenicScore());
         System.out.println("Solve time: " + totalMS + "ns");
     }
